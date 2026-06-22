@@ -28,11 +28,11 @@ func main() {
 	app := fiber.New()
 	app.Use(logger.New())
 
-	swaggerHost := os.Getenv("SWAGGER_HOST")	
-	if swaggerHost == "" {
-		swaggerHost = "127.0.0.1:3000"
+	SwaggerHost := os.Getenv("SWAGGER_HOST")	
+	if SwaggerHost == "" {
+		SwaggerHost = "127.0.0.1:3000"
 	}
-	docs.SwaggerInfo.Host = swaggerHost
+	docs.swaggerInfo.Host = SwaggerHost
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: strings.Join(config.GetAllowedOrigins(), ","),

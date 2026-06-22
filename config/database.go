@@ -13,19 +13,12 @@ var DB *gorm.DB
 
 func InitDB() {
 
-	// Coba load dari folder saat ini
-	err := godotenv.Load(".env")
-	if err != nil {
-		// Jika gagal (saat testing), coba load dari satu folder di atasnya
-		err = godotenv.Load("../.env")
-		if err != nil {
-			log.Fatalf("Error loading .env file: %v", err)
-		}
-	}
+	// Load .env jika ada (opsional - environment variables bisa dari system/cloud)
+	godotenv.Load(".env")
 
 	dsn := os.Getenv("SUPABASE_DSN")
 	if dsn == "" {
-		log.Fatal("SUPABASE_DSN tidak ditemukan di dalam file .env")
+		log.Fatal("SUPABASE_DSN tidak ditemukan. Set via environment variable atau file .env")
 	}
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
