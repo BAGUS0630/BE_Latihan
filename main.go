@@ -4,9 +4,9 @@ import (
 	router "BE_LATIHAN/router"
 	"BE_LATIHAN/config"
 	"BE_LATIHAN/model"
+	"BE_LATIHAN/docs"
 	"strings"
-
-	_ "BE_LATIHAN/docs"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -27,6 +27,12 @@ import (
 func main() {
 	app := fiber.New()
 	app.Use(logger.New())
+
+	swaggerHost := os.Getenv("SWAGGER_HOST")	
+	if swaggerHost == "" {
+		swaggerHost = "127.0.0.1:3000"
+	}
+	docs.SwaggerInfo.Host = swaggerHost
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: strings.Join(config.GetAllowedOrigins(), ","),
