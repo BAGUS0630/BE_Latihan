@@ -32,7 +32,7 @@ func main() {
 	if SwaggerHost == "" {
 		SwaggerHost = "127.0.0.1:3000"
 	}
-	docs.swaggerInfo.Host = SwaggerHost
+	docs.SwaggerInfo.Host = SwaggerHost
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: strings.Join(config.GetAllowedOrigins(), ","),
